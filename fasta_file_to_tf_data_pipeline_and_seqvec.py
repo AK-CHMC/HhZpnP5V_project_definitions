@@ -86,6 +86,7 @@ class PipelineParser():
         emb = self.numpy_fn(seq)
         # emb = tf.expand_dims(emb,0)
         emb = emb[tf.newaxis,:,:] # expand dim to allow variable protein length
+        # ^ may result in batch shape: [batch_size,1,<protein_lengths>,1024]
         emb = self.normalize_fn(emb) # normalize data samples
         emb = tf.RaggedTensor.from_tensor(emb) # convert to ragged tensor
         return pid, seq, emb # return as protein id, fasta sequence, seqvec embedding
