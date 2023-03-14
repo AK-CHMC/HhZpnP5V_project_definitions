@@ -1,5 +1,7 @@
 import tensorflow as tf
 
+# assumes mask is passed to layer in input, but shouldn't be strictly necessary - untested though
+# implementation comes from https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/transformer_encoder.py
 class TransformerBlock(tf.keras.layers.Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
         super(TransformerBlock, self).__init__()
@@ -24,11 +26,12 @@ class TransformerBlock(tf.keras.layers.Layer):
         })
         return config
 
-    def call(self, inputs,mask,training):
-        
-        encoder_pad_mask = tf.math.not_equal(mask, 0)  # shape [B, S]
-        attention_mask = encoder_pad_mask[:, tf.newaxis]
-        
+    def call(self, inputs,mask=None,training=True):
+        if mask is not None:
+            encoder_pad_mask = tf.math.not_equal(mask, 0)  # shape [B, S]
+            attention_mask = encoder_pad_mask[:, tf.newaxis]
+        else:
+            attention_mask = None        
         attn_output = self.att(inputs, inputs,attention_mask=attention_mask)
         attn_output = self.dropout1(attn_output, training=training)
         out1 = self.layernorm1(inputs + attn_output)
