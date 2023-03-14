@@ -1,20 +1,22 @@
 import tensorflow as tf
+from tensorflow.keras.layers import Layer
+import tensorflow.keras.layers as tfl
 
 # assumes mask is passed to layer in input, but shouldn't be strictly necessary - untested though
 # implementation comes from https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/transformer_encoder.py
-class TransformerBlock(tf.keras.layers.Layer):
+class TransformerBlock(Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
         super(TransformerBlock, self).__init__()
         self.embed_dim = embed_dim
         self.num_heads = num_heads
         self.ff_dim = ff_dim
         self.rate = rate
-        self.att = tf.keras.layers.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
-        self.ffn = tf.keras.Sequential([tf.keras.layers.Dense(ff_dim, activation="relu"), tf.keras.layers.Dense(embed_dim)])
-        self.layernorm1 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
-        self.layernorm2 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
-        self.dropout1 = tf.keras.layers.Dropout(rate)
-        self.dropout2 = tf.keras.layers.Dropout(rate)
+        self.att = tfl.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = tf.keras.Sequential([tfl.Dense(ff_dim, activation="relu"), tfl.Dense(embed_dim)])
+        self.layernorm1 = tfl.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = tfl.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = tfl.Dropout(rate)
+        self.dropout2 = tfl.Dropout(rate)
     
     def get_config(self):
         config = super().get_config()
@@ -38,8 +40,9 @@ class TransformerBlock(tf.keras.layers.Layer):
         ffn_output = self.ffn(out1)
         ffn_output = self.dropout2(ffn_output, training=training)
         return self.layernorm2(out1 + ffn_output)
-    
-class SinePositionEncoding(tf.keras.layers.Layer):
+
+# defines SinePositionEncoding from https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/sine_position_encoding.py
+class SinePositionEncoding(Layer):
     def __init__(self,max_wavelength=10000,**kwargs):
         super().__init__(**kwargs)
         self.max_wavelength = max_wavelength
