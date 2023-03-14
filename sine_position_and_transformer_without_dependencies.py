@@ -2,6 +2,12 @@ import tensorflow as tf
 from tensorflow.keras.layers import Layer
 import tensorflow.keras.layers as tfl
 
+"""
+Implements layer classes from keras_nlp without any additional
+the need to actually install keras_nlp into environment, reducing
+the number of dependencies.
+"""
+
 # assumes mask is passed to layer in input, but shouldn't be strictly necessary - untested though
 # implementation comes from https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/transformer_encoder.py
 class TransformerBlock(Layer):
