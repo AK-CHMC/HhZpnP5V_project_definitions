@@ -13,10 +13,8 @@ from tensorflow.keras.metrics import (
 )
 
 
-# define function for matthew's correlation coefficient 
-# and add the tf.function decorator which can sometimes reduce computation time
+# original function for matthew's correlation coefficient 
 # See note with MCC class
-@tf.function(reduce_retracing=True)
 def mcc(y_true, y_pred):
     tp = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     tn = K.sum(K.round(K.clip((1 - y_true) * (1 - y_pred), 0, 1)))
@@ -65,14 +63,15 @@ class MCC(Metric):
     def __init__(self, name='mcc', **kwargs):
         # Initialize the MCC class as a subclass of Metric, and set the name
         super(MCC, self).__init__(name=name, **kwargs)
-        # Initialize the weights for the true positives, true negatives, false positives, and false negatives
+        # Initialize the weights for the running counts of each metric
         self.running_tp = self.add_weight(name='tp', initializer='zeros')
         self.running_tn = self.add_weight(name='tn', initializer='zeros')
         self.running_fp = self.add_weight(name='fp', initializer='zeros')
         self.running_fn = self.add_weight(name='fn', initializer='zeros')
-       
-    def reset_states(self):
-        # Reset the running counts of each value
+      
+    # reset_state is called at the beginning of each epoch
+    def reset_state(self):
+        # Reset the running counts of each metric to zero
         self.running_tp.assign(0)
         self.running_tn.assign(0)
         self.running_fp.assign(0)
@@ -104,7 +103,7 @@ class MCC(Metric):
         fp = self.running_fp
         fn = self.running_fn
 
-        # Calculate numerator and denominator for the Matthews Correlation Coefficient (MCC)
+        # Calculate numerator and denominator for the mcc
         num = (tp * tn) - (fp * fn)
         den = (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)
     
