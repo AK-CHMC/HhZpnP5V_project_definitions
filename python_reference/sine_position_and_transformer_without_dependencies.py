@@ -9,7 +9,7 @@ the number of dependencies.
 """
 
 # assumes mask is passed to layer in input, but shouldn't be strictly necessary - untested though
-# implementation comes from https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/transformer_encoder.py
+# implementation based on https://github.com/keras-team/keras-nlp/blob/v0.4.1/keras_nlp/layers/transformer_encoder.py
 class TransformerBlock(Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
         super(TransformerBlock, self).__init__()
