@@ -5,8 +5,9 @@
 There are two ways in which it can be used from the CLI, also known as the terminal of the head node. 
 
 The first specifies all of its options in one line. For example:
-
-`bsub -Is bash`
+```
+bsub -Is bash
+```
 
 This command requests an interactive job session and starts bash, which also the cluster's default command shell. All other options 
 for the job submission will be set to their defaults, meaning that this session should only last 30 minutes long by default with a single cpu core.
