@@ -46,7 +46,7 @@ module load gold
 gbalance -h -u $USER
 ```
 _Note: you should not need to change the $USER to your username, as it is an linux alias for the username of the currently. 
-However, if you wish to specify the user, there shouldn't anything stopping you from swapping it out._
+However, if you wish to specify the user, there shouldn't be anything stopping you from swapping it out._
 
 
 
