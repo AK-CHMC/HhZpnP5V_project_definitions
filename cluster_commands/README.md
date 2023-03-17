@@ -13,9 +13,9 @@ for the job submission will be set to their defaults, meaning that this session 
 
 The second way of using the `bsub` command is to create a .bat file which specifies your options for a job. (Ex: `job_sample.bat`)
 To use the bat file to submit a job to the cluster, use the following:
-
-`bsub < './job_sample.bat'`
-
+```
+bsub < './job_sample.bat'
+```
 _`job_sample.bat` consists of a job requesting 3 hours and 30 minutes of runtime, 2 cpu cores (ptile value must match), sets the name of the job to sample.
 It is also set to create a log file of the submission or error file in the event that an error is raised.
 anaconda3 is the version of anaconda used for python 3.x.
