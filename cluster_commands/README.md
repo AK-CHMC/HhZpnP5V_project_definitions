@@ -24,6 +24,23 @@ This particular job also converts a jupyter notebook into a python file, but pyt
 
 ## bpeek
 `bpeek <JOBID>` is a command used to show the current state of the output log for a job submission. 
-If you do not specify a job submission, it will default to the
+If you do not specify a job submission, it will default to the most recently submitted job that is still actively running.
+This can be useful for monitoring job progress and identifying errors.
+
+## bkill
+`bkill` is a command used to kill a job submission. By default, it will simply return the help information. Some notable forms for using it though are:
+
+### `bkill -u <USERID>`
+This command will terminate all currently actively running jobs by a user.
+Your username must have permission to end jobs submitted by whichever user specified in the command call.
+In other words, you shouldn't have to worry about accidentally ending someone else's job submissions
+
+### `bkill <JOBID>`
+This command will terminate a specific job specified by the job id.
+Useful for if you have multiple active running jobs and do not want to terminate all of them.
+
+
+
+
 
 
