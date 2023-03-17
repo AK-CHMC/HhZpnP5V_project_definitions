@@ -48,7 +48,8 @@ gbalance -h -u $USER
 ```
 _Note: you should not need to change the $USER to your username, as it is an linux alias for the username of the currently. 
 However, if you wish to specify the user, there shouldn't be anything stopping you from swapping it out.
-You should also be able to copy it by clicking an icon in the top right corner._
+You should also be able to copy it by clicking an icon in the top right corner.
+After that, it can just be directly pasted into the console and it should immediately be entered if you do it that way._
 
 
 
