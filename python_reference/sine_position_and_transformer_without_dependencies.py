@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.layers import Layer
-import tensorflow.keras.layers as tfl
+import tensorflow.keras.layers as tkl
 
 """
 Implements layer classes from keras_nlp without any additional
@@ -17,12 +17,12 @@ class TransformerBlock(Layer):
         self.num_heads = num_heads
         self.ff_dim = ff_dim
         self.rate = rate
-        self.att = tfl.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
-        self.ffn = tf.keras.Sequential([tfl.Dense(ff_dim, activation="relu"), tfl.Dense(embed_dim)])
-        self.layernorm1 = tfl.LayerNormalization(epsilon=1e-6)
-        self.layernorm2 = tfl.LayerNormalization(epsilon=1e-6)
-        self.dropout1 = tfl.Dropout(rate)
-        self.dropout2 = tfl.Dropout(rate)
+        self.att = tkl.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = tf.keras.Sequential([tkl.Dense(ff_dim, activation="relu"), tkl.Dense(embed_dim)])
+        self.layernorm1 = tkl.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = tkl.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = tkl.Dropout(rate)
+        self.dropout2 = tkl.Dropout(rate)
     
     def get_config(self):
         config = super().get_config()
