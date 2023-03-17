@@ -30,8 +30,8 @@ This can be useful for monitoring job progress and identifying errors.
 ## bkill
 `bkill` is a command used to kill a job submission. By default, it will simply return the help information. Some notable forms for using it though are:
 
-### `bkill -u <USERID>`
-This command will terminate all currently actively running jobs by a user.
+### `bkill -u $USER`
+This command will terminate all currently actively running jobs by the current user
 Your username must have permission to end jobs submitted by whichever user specified in the command call.
 In other words, you shouldn't have to worry about accidentally ending someone else's job submissions
 
@@ -39,6 +39,14 @@ In other words, you shouldn't have to worry about accidentally ending someone el
 This command will terminate a specific job specified by the job id.
 Useful for if you have multiple active running jobs and do not want to terminate all of them.
 
+# How to check remaining CPU hours
+
+```bash
+module load gold
+gbalance -h -u $USER
+```
+_Note: you should not need to change the $USER to your username, as it is an linux alias for the username of the currently. 
+However, if you wish to specify the user, there shouldn't anything stopping you from swapping it out._
 
 
 
