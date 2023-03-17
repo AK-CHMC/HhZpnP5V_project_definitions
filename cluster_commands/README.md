@@ -44,9 +44,11 @@ Useful for if you have multiple active running jobs and do not want to terminate
 ```bash
 module load gold
 gbalance -h -u $USER
+
 ```
 _Note: you should not need to change the $USER to your username, as it is an linux alias for the username of the currently. 
-However, if you wish to specify the user, there shouldn't be anything stopping you from swapping it out._
+However, if you wish to specify the user, there shouldn't be anything stopping you from swapping it out.
+You should also be able to copy it by clicking an icon in the top right corner._
 
 
 
