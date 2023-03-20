@@ -56,8 +56,7 @@ a aggregation operator at the end to combine them.
 The default one chosen by keras is the mean.
 
 Since I don't believe mcc values can be combined by simply averaging them together,
-I created a custom metric class. This way I could be in charge of the way that
-the mcc value is updated per each batch over the course of the evaluation
+I created a custom metric class to perform the calculation.
 """
 class MCC(Metric):
     def __init__(self, name='mcc', **kwargs):
